@@ -1,6 +1,12 @@
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
-    let todos = [
+  
+    interface Todo {
+      text: string;
+      checked: boolean;
+    }
+  
+    let todos: Todo[] = [
       { text: 'Hit the gym', checked: false },
       { text: 'Pay bills', checked: true },
       { text: 'Meet George', checked: false },
@@ -9,7 +15,7 @@
       { text: 'Organize office', checked: false }
     ];
   
-    let newTodo = '';
+    let newTodo: string = '';
   
     function addTodo() {
       if (newTodo.trim()) {
@@ -18,13 +24,13 @@
       }
     }
   
-    function toggleChecked(index) {
+    function toggleChecked(index: number) {
       todos = todos.map((todo, i) =>
         i === index ? { ...todo, checked: !todo.checked } : todo
       );
     }
   
-    function removeTodo(index) {
+    function removeTodo(index: number) {
       todos = todos.filter((_, i) => i !== index);
     }
   </script>
@@ -43,7 +49,7 @@
   <ul id="myUL">
     {#each todos as { text, checked }, index}
       <li class:checked={checked}>
-        <button class="task" on:click={() => toggleChecked(index)}>{text}</button>
+        <button class="task {checked ? 'checked' : ''}" on:click={() => toggleChecked(index)}>{text}</button>
         <button class="close" on:click={(e) => { e.stopPropagation(); removeTodo(index); }} aria-label="Remove">&times;</button>
       </li>
     {/each}
