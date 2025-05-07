@@ -1,4 +1,3 @@
-
 <script>
     import { onMount } from 'svelte';
     let todos = [
@@ -44,8 +43,8 @@
   <ul id="myUL">
     {#each todos as { text, checked }, index}
       <li class:checked={checked}>
-        <span on:click={() => toggleChecked(index)}>{text}</span>
-        <span class="close" on:click={(e) => { e.stopPropagation(); removeTodo(index); }}>&times;</span>
+        <button class="task" on:click={() => toggleChecked(index)}>{text}</button>
+        <button class="close" on:click={(e) => { e.stopPropagation(); removeTodo(index); }} aria-label="Remove">&times;</button>
       </li>
     {/each}
   </ul>
@@ -61,43 +60,35 @@
     }
   
     ul li {
-      cursor: pointer;
       position: relative;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 5px;
+    }
+  
+    .task {
+      cursor: pointer;
+      width: 100%;
       padding: 12px 8px 12px 40px;
       background: #eee;
       font-size: 18px;
+      text-align: left;
       transition: 0.2s;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
+      border: none;
     }
   
-    ul li:nth-child(odd) {
+    ul li:nth-child(odd) .task {
       background: #f9f9f9;
     }
   
-    ul li:hover {
+    .task:hover {
       background: #ddd;
     }
   
-    ul li.checked {
+    .task.checked {
       background: #888;
       color: #fff;
       text-decoration: line-through;
-    }
-  
-    ul li.checked::before {
-      content: '';
-      position: absolute;
-      border-color: #fff;
-      border-style: solid;
-      border-width: 0 2px 2px 0;
-      top: 10px;
-      left: 16px;
-      transform: rotate(45deg);
-      height: 15px;
-      width: 7px;
     }
   
     .close {
@@ -105,6 +96,11 @@
       right: 0;
       top: 0;
       padding: 12px 16px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #888;
+      font-size: 18px;
     }
   
     .close:hover {
@@ -153,5 +149,3 @@
     }
   </style>
   
-
-
