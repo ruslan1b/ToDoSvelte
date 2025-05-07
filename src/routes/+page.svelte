@@ -87,6 +87,10 @@
       background: #f9f9f9;
     }
   
+    ul li:nth-child(odd).checked .task {
+      background: #888;  /* темніший фон для непарних елементів з "checked" */
+    }
+  
     .task:hover {
       background: #ddd;
     }
@@ -152,6 +156,12 @@
   
     .addBtn:hover {
       background-color: #bbb;
+    }
+  
+    ul li.checked {
+      background: #888;
+      color: #fff;
+      text-decoration: line-through;
     }
   </style>
   
